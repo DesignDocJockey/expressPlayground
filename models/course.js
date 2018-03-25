@@ -11,16 +11,3 @@ const course = new Schema(
     } 
 );
 module.exports = mongoose.model('Course', course);
-
-/*
-module.exports = class Course {
-    constructor(courseName, 
-                publisher, 
-                edition=1) 
-    {
-        this.courseName = courseName;
-        this.publisher = publisher;
-        this.edition = edition;
-    }
-};
-*/
