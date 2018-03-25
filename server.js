@@ -25,11 +25,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const JAVA_ROUTE = '/java';
 const JAVA_ROUTE_BY_ID = '/java/:courseId';
 
-const javaRouter =  express.Router();
-javaRouter.route(JAVA_ROUTE)
+const router =  express.Router();
+router.route(JAVA_ROUTE)
         .post((request, response) => {
-            let course = new Course();
-
+            let newCourse = new Course(request.body);
+            newCourse.save();
+            response.status(201).send(newCourse);
         })
         .get((request, response) =>
         {
@@ -46,7 +47,7 @@ javaRouter.route(JAVA_ROUTE)
             });
         });
 
-javaRouter.route(JAVA_ROUTE_BY_ID)
+router.route(JAVA_ROUTE_BY_ID)
         .get( (request, response) => {
             let courseId = null;
             if(request.params.courseId && request.params.courseId !== '') {
@@ -62,7 +63,7 @@ javaRouter.route(JAVA_ROUTE_BY_ID)
             });
         });
 
-app.use('/api', javaRouter);
+app.use('/api', router);
 
 app.get('/', (req, resp) => {
     console.log('Hitting the / directory');
